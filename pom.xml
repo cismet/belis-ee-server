@@ -44,9 +44,12 @@
                     <echo>true</echo>
                     <terse>false</terse>
                     <domain>
+                        <!--<name>${glassfish.domain}</name>
+                        <httpPort>${glassfish.http.port}</httpPort>
+                        <adminPort>${glassfish.admin.port}</adminPort>                        -->
                         <name>de.cismet.belis.dev</name>
                         <httpPort>60081</httpPort>
-                        <adminPort>60048</adminPort>
+                        <adminPort>60048</adminPort>                        
                         <reuse>true</reuse>
                     </domain>
                     <components>
@@ -57,8 +60,7 @@
                     </components>
                 </configuration>
             </plugin>
-        </plugins>
-        <finalName>BelISEEServer-ear</finalName>
+        </plugins>        
     </build>
     <dependencies>
         <dependency>
