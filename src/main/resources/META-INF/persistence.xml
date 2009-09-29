@@ -5,7 +5,7 @@
     <jta-data-source>jdbc/belis</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <!--<property name="hibernate.show_sql" value="true"/>-->
+      <property name="hibernate.show_sql" value="true"/>
       <!--<property name="hibernate.format_sql" value="true"/>-->
       <property name="hibernate.bytecode.use_reflection_optimizer" value="false"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>      
