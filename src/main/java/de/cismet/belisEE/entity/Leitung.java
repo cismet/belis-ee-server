@@ -117,14 +117,14 @@ public class Leitung extends GeoBaseEntity implements Serializable,DocumentConta
 
     @Override
     public int getLineWidth() {
-        return 2;
+        return 4;
     }
     
     @Override
     public Paint getLinePaint() {
         if (getLeitungstyp() != null && getLeitungstyp().getBezeichnung() != null) {
             if (getLeitungstyp().getBezeichnung().equals("Erdkabel")) {
-                return new Color(0, 220, 255, 255);
+                return new Color(126,46 , 0 , 255);
             } else if (getLeitungstyp().getBezeichnung().equals("Tragseil mit Freileitung")) {
                 return new Color(102, 0, 102, 255);
             } else if (getLeitungstyp().getBezeichnung().equals("Tragseil")) {
