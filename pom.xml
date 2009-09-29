@@ -8,7 +8,7 @@
     </parent>
     <groupId>de.cismet.belis</groupId>
     <artifactId>belis-ee-server-ejb</artifactId>
-    <packaging>ejb</packaging>
+    <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>BelIS EE Server - ejb JEE5 EJB</name>
     <description>!!! description pending !!!</description>
@@ -76,8 +76,7 @@
                     <ejbVersion>3.0</ejbVersion>
                 </configuration>
             </plugin>
-        </plugins>
-        <finalName>BelISEEServer-ejb</finalName>
+        </plugins>        
     </build>
 </project>
 
