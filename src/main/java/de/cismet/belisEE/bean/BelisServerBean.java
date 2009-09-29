@@ -440,6 +440,7 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
     }
 
     public TreeSet saveObjects(Set<BaseEntity> objectsToSave, String userString) throws ActionNotSuccessfulException {
+        System.out.println("save objects");
         TreeSet<BaseEntity> savedEntities = new TreeSet(new ReverseComparator(new EntityComparator(new ReverseComparator(new LeuchteComparator()))));
         ArrayList<BaseEntity> errornousEntities = new ArrayList<BaseEntity>();
         try {
@@ -471,8 +472,9 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
                             } else {
                                 System.out.println("Entity Id is set --> checking Modification.");
                                 //if (curEntity.isWasModified()) {
-                                System.out.println("Entity Id is set --> merge entity (update).");
+                                System.out.println("Entity Id is set --> merge entity (update).");                                
                                 final BaseEntity refreshedEntity = em.merge(curEntity);
+                                em.flush();
                                 if (refreshedEntity instanceof GeoBaseEntity) {
                                     //ToDo
                                     //updateGeomIndex((GeoBaseEntity) curEntity, false);
@@ -533,6 +535,7 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
         if (objectToDelete != null) {
             try {
                 em.remove(em.merge(objectToDelete));
+                em.flush();
             } catch (Exception ex) {
                 System.out.println("Error while deleting entity");
                 ex.printStackTrace();
@@ -923,6 +926,7 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
                     System.out.println("IndexAvailable.Updating Geometry");
                     index.setGeometry(entity.getGeometrie());
                     em.merge(index);
+                    em.flush();
                 } else {
                     System.out.println("Warning no index available. Creating Index");
                     updateGeomIndex(entity, true);
