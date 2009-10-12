@@ -534,7 +534,23 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
     public void deleteEntity(BaseEntity objectToDelete, String userString) throws ActionNotSuccessfulException {
         if (objectToDelete != null) {
             try {
-                em.remove(em.merge(objectToDelete));
+                if(objectToDelete instanceof Standort){
+                    if(((Standort)objectToDelete).getLeuchten() != null){
+                    System.out.println("Leuchten des zu löschenden Standorts: "+((Standort)objectToDelete).getLeuchten());
+                    } else {
+                        System.out.println("leuchten null");
+                    }
+                }
+                final BaseEntity updatedEntity = em.merge(objectToDelete);
+                if(objectToDelete instanceof Standort){
+                    if(((Standort)objectToDelete).getLeuchten() != null){
+                    System.out.println("Leuchten des zu löschenden Standorts: "+((Standort)objectToDelete).getLeuchten());
+                    } else {
+                        System.out.println("leuchten null");
+                    }
+                }
+                System.out.println("UpdatedEntity: "+updatedEntity);
+                em.remove(updatedEntity);
                 em.flush();
             } catch (Exception ex) {
                 System.out.println("Error while deleting entity");

@@ -41,6 +41,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Sort;
@@ -81,7 +82,7 @@ public class Standort extends GeoBaseEntity implements Serializable, ObjectKey, 
     
     private static final long serialVersionUID = 1L;
 //    @Column(name = "`Stadtbezirk`")
-//    private Short stadtbezirk;
+//    private Short stadtbezirk;k
     @Column(name = "`PLZ`")
     private String plz;
     public static final String PROP_PLZ = "Standort.plz";
@@ -156,11 +157,12 @@ public class Standort extends GeoBaseEntity implements Serializable, ObjectKey, 
 
     public static final String PROP_ID = "Standort.id";    //ToDo document limitations
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy="standort")
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},mappedBy="standort")
     @JoinColumns({@JoinColumn(name = "`Straßenschlüssel`", referencedColumnName = "`Straßenschlüssel`"),
         @JoinColumn(name = "`Kennziffer`", referencedColumnName = "`Kennziffer`"),
         @JoinColumn(name = "`lfd_Nummer`", referencedColumnName = "`lfd_Nummer`")
     })
+    @org.hibernate.annotations.Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     //@Fetch(FetchMode.SUBSELECT)
     @Sort(type = SortType.COMPARATOR, comparator = LeuchteComparator.class)
     private Set<Leuchte> leuchten;

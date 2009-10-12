@@ -20,6 +20,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -30,8 +31,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -134,7 +133,8 @@ public class Leuchte extends BaseEntity implements Serializable,PropertyChangeLi
         
 //    //ToDo test remove
 //    //ToDo document limitations
-    @ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    //@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     //@Fetch(FetchMode.SELECT)
     //@JoinColumn(name = "standort_id")
     private Standort standort;
