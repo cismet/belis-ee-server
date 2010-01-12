@@ -181,4 +181,7 @@ public class GeoBaseEntity extends BaseEntity implements GeometrySlot{
         return "";
     }
 
+    public void setCanBeSelected(boolean selectable){
+
+     }
 }
