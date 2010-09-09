@@ -46,7 +46,6 @@ import javax.persistence.UniqueConstraint;
 })
 public class Schaltstelle extends GeoBaseEntity implements Serializable,DocumentContainer {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @SequenceGenerator(name = "Schaltstelle_seq", sequenceName = "schaltstelle_seq", allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Schaltstelle_seq")

@@ -60,7 +60,6 @@ public class Leuchte extends BaseEntity implements Serializable,PropertyChangeLi
     }
     
 
-    private static final long serialVersionUID = 1L;
     @Column(name = "`Stadtbezirk`")
     private Short stadtbezirk;
     @Column(name = "`PLZ`")

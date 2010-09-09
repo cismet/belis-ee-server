@@ -23,7 +23,6 @@ import javax.persistence.Table;
 @Table(name = "tkey_unterh_leuchte")
 @NamedQueries({@NamedQuery(name = "UnterhaltLeuchte.findAllUnterhaltLeuchte", query = "SELECT u FROM UnterhaltLeuchte u")})
 public class UnterhaltLeuchte extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "`pk`", nullable = false)
     private Short pk;

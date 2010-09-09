@@ -25,7 +25,6 @@ import javax.persistence.SequenceGenerator;
 })
 public class Querschnitt extends BaseEntity implements Serializable {
     
-    private static final long serialVersionUID = 1L;
     @Id
     @SequenceGenerator(name="Querschnitt_seq",sequenceName="querschnitt_seq",allocationSize=1,initialValue=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="Querschnitt_seq")

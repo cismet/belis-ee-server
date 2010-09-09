@@ -24,7 +24,6 @@ import javax.persistence.Table;
 @NamedQuery(name = "Mastart.findAllMastarten", query = "SELECT m FROM Mastart m")
 })
 public class Mastart extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "`pk`", nullable = false)
     private String pk;

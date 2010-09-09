@@ -24,7 +24,6 @@ import javax.persistence.Table;
 @NamedQuery(name = "Energielieferant.findAllEnergielieferanten", query = "SELECT e FROM Energielieferant e")
 })
 public class Energielieferant extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "`pk`", nullable = false)
     private Short pk;

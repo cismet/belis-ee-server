@@ -24,7 +24,6 @@ import javax.persistence.Table;
 @NamedQuery(name = "Doppelkommando.findAllDoppelkommando", query = "SELECT d FROM Doppelkommando d")
 })
 public class Doppelkommando extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "`pk`", nullable = false)
     private String pk;

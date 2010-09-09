@@ -27,7 +27,6 @@ import javax.persistence.Table;
 @NamedQuery(name = "GeomToEntityIndex.findGeomToEntityIndexByGeomId", query = "FROM GeomToEntityIndex g WHERE g.geometry.id =:id")
 public class GeomToEntityIndex implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
     //ToDo umstellen
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -24,7 +24,6 @@ import javax.persistence.Table;
 @NamedQuery(name = "Masttyp.findAllMasttypen", query = "SELECT m FROM Masttyp m")
 })
 public class Masttyp extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "`Masttyp`", nullable = false)
     private String masttyp;

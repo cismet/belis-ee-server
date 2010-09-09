@@ -40,7 +40,6 @@ import javax.persistence.Table;
 })
 public class Leitung extends GeoBaseEntity implements Serializable,DocumentContainer {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @SequenceGenerator(name = "Leitung_seq", sequenceName = "leitung_seq", allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Leitung_seq")

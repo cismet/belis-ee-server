@@ -80,7 +80,6 @@ public class Standort extends GeoBaseEntity implements Serializable, ObjectKey, 
     }
 
     
-    private static final long serialVersionUID = 1L;
 //    @Column(name = "`Stadtbezirk`")
 //    private Short stadtbezirk;k
     @Column(name = "`PLZ`")

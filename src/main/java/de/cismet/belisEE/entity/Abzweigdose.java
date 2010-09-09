@@ -34,7 +34,6 @@ import javax.persistence.Table;
     @NamedQuery(name = "Abzweigdose.refresh", query = "FROM Abzweigdose a WHERE a.id in (:ids)")
 })
 public class Abzweigdose extends GeoBaseEntity implements DocumentContainer {
-    private static final long serialVersionUID = 1L;
 
     @Id
     @SequenceGenerator(name = "abzweigdose_seq", sequenceName = "tdta_abzweigdose_seq", allocationSize = 1, initialValue = 1)

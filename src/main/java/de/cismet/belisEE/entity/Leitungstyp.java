@@ -24,7 +24,6 @@ import javax.persistence.SequenceGenerator;
 @NamedQuery(name = "Leitungstyp.findAllLeitungstyp", query = "SELECT l FROM Leitungstyp l")
 })
 public class Leitungstyp extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     
     @Id
     @SequenceGenerator(name="Leitungstyp_seq",sequenceName="leitungstyp_seq",allocationSize=1,initialValue=1)

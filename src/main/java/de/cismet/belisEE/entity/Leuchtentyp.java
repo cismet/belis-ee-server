@@ -24,7 +24,6 @@ import javax.persistence.Table;
 @NamedQuery(name = "Leuchtentyp.findAllLeuchtentyp", query = "SELECT l FROM Leuchtentyp l")
 })
 public class Leuchtentyp extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "`Leuchtentyp`", nullable = false)
     private String leuchtentyp;

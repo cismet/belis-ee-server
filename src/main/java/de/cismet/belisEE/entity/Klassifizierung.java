@@ -24,7 +24,6 @@ import javax.persistence.Table;
 @NamedQuery(name = "Klassifizierung.findAllKlassifizierungen", query = "SELECT k FROM Klassifizierung k")
 })
 public class Klassifizierung extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "`pk`", nullable = false)
     private Short pk;

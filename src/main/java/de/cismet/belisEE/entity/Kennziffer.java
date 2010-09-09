@@ -25,7 +25,6 @@ import javax.persistence.Table;
 @NamedQuery(name = "Kennziffer.findAllKennziffer", query = "SELECT k FROM Kennziffer k")
 })
 public class Kennziffer extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "`Kennziffer`", nullable = false)
     private Short kennziffer;

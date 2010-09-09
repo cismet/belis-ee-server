@@ -22,7 +22,6 @@ import javax.persistence.Table;
 @Table(name = "tkey_bezirk")
 @NamedQueries({@NamedQuery(name = "Stadtbezirk.findAllStadtbezirke", query = "SELECT s FROM Stadtbezirk s")})
 public class Stadtbezirk extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "`pk`", nullable = false)
     private Short pk;

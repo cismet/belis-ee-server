@@ -24,7 +24,6 @@ import javax.persistence.SequenceGenerator;
 @NamedQuery(name = "Bauart.findAllBauart", query = "SELECT b FROM Bauart b")
 })
 public class Bauart extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @SequenceGenerator(name="Bauart_seq",sequenceName="bauart_seq",allocationSize=1,initialValue=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="Bauart_seq")

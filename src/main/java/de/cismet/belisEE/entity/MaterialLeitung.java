@@ -26,7 +26,6 @@ import javax.persistence.Table;
 @NamedQuery(name = "MaterialLeitung.findAllMaterialLeitung", query = "SELECT m FROM MaterialLeitung m")
 })
 public class MaterialLeitung extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @SequenceGenerator(name="MaterialLeitung_seq",sequenceName="material_leitung_seq",allocationSize=1,initialValue=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="MaterialLeitung_seq")

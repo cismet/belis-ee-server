@@ -26,7 +26,6 @@ import javax.persistence.Table;
 @NamedQuery(name = "MaterialMauerlasche.findAllMaterialMauerlasche", query = "SELECT m FROM MaterialMauerlasche m")
 })
 public class MaterialMauerlasche extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @SequenceGenerator(name="MaterialMauerlasche_seq",sequenceName="material_mauerlasche_seq",allocationSize=1,initialValue=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="MaterialMauerlasche_seq")

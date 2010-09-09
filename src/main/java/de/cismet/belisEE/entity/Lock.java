@@ -28,7 +28,6 @@ import javax.persistence.TemporalType;
 @Table(name = "sperre")
 @NamedQueries({@NamedQuery(name = "Lock.findLockForObject", query = "SELECT l FROM Lock l WHERE l.classId = :classId AND l.objectId = :objectId")})
 public class Lock extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Column(name = "class_id")
     private String classId;
     @Column(name = "object_id")
