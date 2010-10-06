@@ -411,6 +411,9 @@ public class Leuchte extends BaseEntity implements Serializable,PropertyChangeLi
             } else if(evt.getPropertyName() != null && evt.getPropertyName().equals(Standort.PROP_KENNZIFFER)){
                 System.out.println("Kennziffer changed");
                 setKennziffer((Kennziffer)evt.getNewValue());
+             } else if(evt.getPropertyName() != null && evt.getPropertyName().equals(Standort.PROP_LAUFENDENUMMER)){
+                System.out.println("Laufende Nummer changed");
+                setLaufendeNummer((Short)evt.getNewValue());
             } else {
                 System.out.println("Unkown property. Nothing to change");
             }

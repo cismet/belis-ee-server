@@ -65,5 +65,6 @@ public interface BelisServerRemote extends lockEnabled{
      //by Geometry
      public TreeSet<BaseEntity> getObjectsByBoundingBox(BoundingBox bb) throws ActionNotSuccessfulException;
      public Object getObjectsByGeom(Geom geom) throws ActionNotSuccessfulException;
-              
+     public boolean checkIfStandortExists(Standort standort) throws ActionNotSuccessfulException;     
+     public Standort determineNextLaufendenummer(Standort standort, Short minimalNumber) throws ActionNotSuccessfulException;
 }

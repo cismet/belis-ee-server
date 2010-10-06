@@ -61,6 +61,7 @@ import org.hibernate.annotations.SortType;
     @NamedQuery(name = "Standort.findStandortByStrassenschluesselByKennziffer", query = "FROM Standort s WHERE s.strassenschluessel.pk =:strassenschluessel AND s.kennziffer.kennziffer=:kennziffer"),
     @NamedQuery(name = "Standort.findStandortByStrassenschluesselBylfdNummer", query = "FROM Standort s WHERE s.strassenschluessel.pk =:strassenschluessel AND s.laufendeNummer = :laufendeNummer"),
     @NamedQuery(name = "Standort.findHighestLaufendenummer", query = "SELECT MAX(s.laufendeNummer) FROM Standort s WHERE s.strassenschluessel.pk like :strassenschluessel AND s.kennziffer.kennziffer = :kennziffer"),
+    @NamedQuery(name = "Standort.checkLaufendeNummer", query = "SELECT s FROM Standort s WHERE s.strassenschluessel.pk like :strassenschluessel AND s.kennziffer.kennziffer = :kennziffer AND  s.laufendeNummer = :laufendeNummer"),
     @NamedQuery(name = "Standort.refresh", query = "FROM Standort s WHERE s.id in (:ids)")
 })
 public class Standort extends GeoBaseEntity implements Serializable, ObjectKey, PropertyChangeListener, DocumentContainer {

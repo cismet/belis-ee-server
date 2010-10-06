@@ -4,7 +4,6 @@
  */
 package de.cismet.belisEE.bean;
 
-
 import de.cismet.belisEE.bean.interfaces.BelisServerRemote;
 import de.cismet.belisEE.entity.Bauart;
 import de.cismet.belisEE.entity.Doppelkommando;
@@ -426,14 +425,14 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
         //final TreeSet<BaseEntity> results = new TreeSet<BaseEntity>(new EntityComparator());
         final TreeSet<BaseEntity> results = new TreeSet<BaseEntity>(new ReverseComparator(new EntityComparator(new ReverseComparator(new LeuchteComparator()))));
         if (standorte != null) {
-            addCollectionToSortedSet(results,standorte);
+            addCollectionToSortedSet(results, standorte);
         }
         if (schaltstellen != null) {
-            addCollectionToSortedSet(results,schaltstellen);
+            addCollectionToSortedSet(results, schaltstellen);
             //results.addAll(schaltstellen);
         }
         if (mauerlaschen != null) {
-            addCollectionToSortedSet(results,mauerlaschen);
+            addCollectionToSortedSet(results, mauerlaschen);
             //results.addAll(mauerlaschen);
         }
         return results;
@@ -450,8 +449,12 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
                         if (curEntity != null) {
                             if (BelisEEUtils.getEntityId(curEntity) == null) {
                                 System.out.println("Entity Id is not set --> persisting entity (create).");
-                                if (curEntity instanceof Standort) {
+                                if (curEntity instanceof Standort && ((Standort) curEntity).getLaufendeNummer() == null) {
+                                    //ToDo maybe is already set
+                                    System.out.println("There is no laufende Nummer set, getting automaticly next one");
                                     determineNextLaufendenummer((Standort) curEntity);
+                                } else {
+                                    System.out.println("Laufende Nummer already set no need to determine next one");
                                 }
                                 em.persist(curEntity);
 //                                if (curEntity instanceof Standort) {
@@ -472,7 +475,7 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
                             } else {
                                 System.out.println("Entity Id is set --> checking Modification.");
                                 //if (curEntity.isWasModified()) {
-                                System.out.println("Entity Id is set --> merge entity (update).");                                
+                                System.out.println("Entity Id is set --> merge entity (update).");
                                 final BaseEntity refreshedEntity = em.merge(curEntity);
                                 em.flush();
                                 if (refreshedEntity instanceof GeoBaseEntity) {
@@ -481,9 +484,9 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
                                     updateGeomIndex((GeoBaseEntity) refreshedEntity, false);
                                 }
                                 savedEntities.add(refreshedEntity);
-                            //} else {
-                            //    System.out.println("Entity was not modified --> skipping Entity");
-                            //}
+                                //} else {
+                                //    System.out.println("Entity was not modified --> skipping Entity");
+                                //}
                             }
                         } else {
                             System.out.println("Entity is null --> skipping Entity");
@@ -534,22 +537,22 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
     public void deleteEntity(BaseEntity objectToDelete, String userString) throws ActionNotSuccessfulException {
         if (objectToDelete != null) {
             try {
-                if(objectToDelete instanceof Standort){
-                    if(((Standort)objectToDelete).getLeuchten() != null){
-                    System.out.println("Leuchten des zu löschenden Standorts: "+((Standort)objectToDelete).getLeuchten());
+                if (objectToDelete instanceof Standort) {
+                    if (((Standort) objectToDelete).getLeuchten() != null) {
+                        System.out.println("Leuchten des zu löschenden Standorts: " + ((Standort) objectToDelete).getLeuchten());
                     } else {
                         System.out.println("leuchten null");
                     }
                 }
                 final BaseEntity updatedEntity = em.merge(objectToDelete);
-                if(objectToDelete instanceof Standort){
-                    if(((Standort)objectToDelete).getLeuchten() != null){
-                    System.out.println("Leuchten des zu löschenden Standorts: "+((Standort)objectToDelete).getLeuchten());
+                if (objectToDelete instanceof Standort) {
+                    if (((Standort) objectToDelete).getLeuchten() != null) {
+                        System.out.println("Leuchten des zu löschenden Standorts: " + ((Standort) objectToDelete).getLeuchten());
                     } else {
                         System.out.println("leuchten null");
                     }
                 }
-                System.out.println("UpdatedEntity: "+updatedEntity);
+                System.out.println("UpdatedEntity: " + updatedEntity);
                 em.remove(updatedEntity);
                 em.flush();
             } catch (Exception ex) {
@@ -601,7 +604,6 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
 //            throw new ActionNotSuccessfulException("Error while refreshing entities", ex);
 //        }
 //    }
-
     public Set refreshObjects(Set<BaseEntity> objectsToRefresh) throws ActionNotSuccessfulException {
         System.out.println("refresh objects");
         final ArrayList<BaseEntity> errornousEntities = new ArrayList<BaseEntity>();
@@ -631,15 +633,15 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
                             //refreshedObjects.addAll(curClassResults);
                         }
 
-                    //ToDo Threading
-                    //if (curEntity.isWasModified()) {
-                    //refreshedObjects.add(em.find(curEntity.getClass(), BelisEEUtils.getEntityId(curEntity)));
-                    //} else {
-                    //   System.out.println("No need to refresh Entity: " + curEntity + " was not modified.");
-                    //    refreshedObjects.add(curEntity);
-                    //}
-                    //persist(curEntity);
-                    //em.refresh(curEntity);
+                        //ToDo Threading
+                        //if (curEntity.isWasModified()) {
+                        //refreshedObjects.add(em.find(curEntity.getClass(), BelisEEUtils.getEntityId(curEntity)));
+                        //} else {
+                        //   System.out.println("No need to refresh Entity: " + curEntity + " was not modified.");
+                        //    refreshedObjects.add(curEntity);
+                        //}
+                        //persist(curEntity);
+                        //em.refresh(curEntity);
                     } catch (Exception ex) {
                         System.out.println("Error while refreshing Entity: " + curEntity);
                         ex.printStackTrace();
@@ -698,14 +700,14 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
             }
 
             for (Class curClass : entityIDs.keySet()) {
-                System.out.println("Class to search: "+ curClass.getSimpleName()+", id: "+curClass+" ,entityIDs: "+entityIDs.get(curClass));
+                System.out.println("Class to search: " + curClass.getSimpleName() + ", id: " + curClass + " ,entityIDs: " + entityIDs.get(curClass));
                 List curClassResults = em.createNamedQuery(
                         curClass.getSimpleName() + ".refresh").setParameter("ids", entityIDs.get(curClass)).getResultList();
                 System.out.println("found: " + curClassResults);
                 addCollectionToSortedSet(result, curClassResults);
                 //result.addAll(curClassResults);
             }
-            System.out.println("Entities in result set: "+result.size());
+            System.out.println("Entities in result set: " + result.size());
             return result;
         } catch (Exception ex) {
             System.out.println("Failure during boundingBox querying: " + bb);
@@ -723,7 +725,7 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
                 return em.find(geomIndex.getEntityClass(), geomIndex.getEntityID());
             }
             return null;
-        //System.out.println("found Standort for geometry");
+            //System.out.println("found Standort for geometry");
 
 //            System.out.println("Standort.findStandortByGeom.");
 //            //ToDo are there only
@@ -790,7 +792,7 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
                 return em.find(index.getEntityClass(), index.getEntityID());
             }
             return null;
-        //System.out.println("found Standort for geometry");
+            //System.out.println("found Standort for geometry");
 
 //            System.out.println("Standort.findStandortByGeom.");
 //            //ToDo are there only
@@ -851,7 +853,11 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
         }
     }
 
-    private void determineNextLaufendenummer(Standort standort) throws ActionNotSuccessfulException {
+    public Standort determineNextLaufendenummer(Standort standort) throws ActionNotSuccessfulException {
+        return determineNextLaufendenummer(standort, new Short((short)-1));
+    }
+
+    public Standort determineNextLaufendenummer(Standort standort, Short minimalNumber) throws ActionNotSuccessfulException {
         System.out.println("determine next laufendenummer");
         if (standort != null) {
             //ToDo would be cooler to use the objects itself as parameter;
@@ -868,20 +874,37 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
                     final Short highestNumber = (Short) em.createNamedQuery(
                             "Standort.findHighestLaufendenummer").setParameter("strassenschluessel", strasse).setParameter("kennziffer", kennziffer).getSingleResult();
                     if (highestNumber == null) {
-                        System.out.println("there is no highest laufende nummer using 0.");
-                        standort.setLaufendeNummer((short) 0);
+                        if (minimalNumber > -1) {
+                            System.out.println("there is no highest laufende nummer using minimal: " + minimalNumber);
+                            standort.setLaufendeNummer((short) minimalNumber);
+                        } else {
+                            System.out.println("there is no highest laufende nummer and no minimalNumber using 0.");
+                            standort.setLaufendeNummer((short) 0);
+                        }
                     } else {
                         System.out.println("the highest laufende nummer is: " + highestNumber);
-                        //ToDo best way to add Short ?
-                        standort.setLaufendeNummer((short) (highestNumber + ((short) 1)));
+                        if (minimalNumber > -1 && minimalNumber > highestNumber) {
+                            System.out.println("Minimal "+minimalNumber+" is greater than highest number using minimal number");
+                            standort.setLaufendeNummer((short) minimalNumber);
+                        } else {
+                            System.out.println("Minimal is -1 or smaller than highest number: "+minimalNumber);
+                            System.out.println("using highestnumber +1 ");
+                            //ToDo best way to add Short ?
+                            standort.setLaufendeNummer((short) (highestNumber + ((short) 1)));
+                        }
                     }
                     setLeuchtenPropertiesDependingOnStandort(standort);
-                    return;
+                    return standort;
                 } catch (NoResultException ex) {
-                    System.out.println("there is no result. Setting laufendenummer to 0.");
-                    standort.setLaufendeNummer((short) 0);
+                    if (minimalNumber > -1) {
+                            System.out.println("there is no result using minimal: " + minimalNumber);
+                            standort.setLaufendeNummer((short) minimalNumber);
+                        } else {
+                            System.out.println("there is no result and no minimalNumber using 0.");
+                            standort.setLaufendeNummer((short) 0);
+                        }                    
                     setLeuchtenPropertiesDependingOnStandort(standort);
-                    return;
+                    return standort;
                 } catch (Exception ex) {
                     System.out.println("Error while querying entity");
                     ex.printStackTrace();
@@ -890,6 +913,63 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
             }
         }
         throw new ActionNotSuccessfulException("Not possible to determine laufendenummer kennziffer and strassenschlüssel of standort must be set.");
+    }
+
+    //ToDo bad name because if the id is the same it will return false even if the standort exists special name
+    public boolean checkIfStandortExists(Standort standort) throws ActionNotSuccessfulException {
+        System.out.println("checkLaufendeNummer");
+        if (standort != null) {
+            //ToDo would be cooler to use the objects itself as parameter;
+            String strasse = null;
+            if (standort.getStrassenschluessel() == null || (strasse = standort.getStrassenschluessel().getPk()) == null) {
+                System.out.println("strassenschluessel must be != null");
+                throw new ActionNotSuccessfulException("Straßenschlüssel muss gesetzt werden.");
+            }
+            Short kennziffer = null;
+            if (standort.getKennziffer() == null || (kennziffer = standort.getKennziffer().getKennziffer()) == null) {
+                System.out.println("kennziffer must be != null");
+                throw new ActionNotSuccessfulException("Kennziffer muss gesetzt werden.");
+            }
+            Short laufendeNummer = null;
+            if (standort.getLaufendeNummer() == null) {
+                System.out.println("laufendeNummer must be != null");
+                throw new ActionNotSuccessfulException("Laufende Nummer muss gesetzt werden.");
+            }
+            laufendeNummer = standort.getLaufendeNummer();
+            if (kennziffer != null && strasse != null && laufendeNummer != null) {
+                try {
+                    final Standort result = (Standort) em.createNamedQuery(
+                            "Standort.checkLaufendeNummer").setParameter("strassenschluessel", strasse).
+                            setParameter("kennziffer", kennziffer).
+                            setParameter("laufendeNummer", laufendeNummer).
+                            getSingleResult();
+                    if (result != null) {
+                        System.out.println("There is a Standort with the specific Straßenschlüssel,Kennziffer,Laufendenummer.");
+                        if (standort.equals(result)) {
+                            System.out.println("Standort in the database is the same as from method call");
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    } else {
+                        System.out.println("There is no Standort with the specific Straßenschlüssel,Kennziffer,Laufendenummer.");
+                        return false;
+                    }
+                } catch (NoResultException ex) {
+                    System.out.println("there is no result. Standort does not not exist.");
+                    return false;
+                } catch (Exception ex) {
+                    System.out.println("Error while querying entity");
+                    ex.printStackTrace();
+                    throw new ActionNotSuccessfulException("Fehler beim prüfen des Standorts.", ex);
+                }
+            } else {
+                System.out.println("Not all values could be set no check possible");
+                throw new ActionNotSuccessfulException("Standort konnte nicht überprüft werden,da nicht alle Felder des Schlüssels gesetzt sind.");
+            }
+        } else {
+            throw new ActionNotSuccessfulException("Standort konnte nicht überprüft werden, da kein Standort übergeben wurde");
+        }
     }
 
     private void setLeuchtenPropertiesDependingOnStandort(Standort standort) {
@@ -970,10 +1050,10 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
         return null;
     }
 
-    private static void addCollectionToSortedSet(SortedSet sortedSet,Collection collection){
-        if(sortedSet != null && collection != null && collection.size() >0){
-            System.out.println("adding Collection: "+collection+"to sorted set: "+sortedSet);
-            for(Object curObject:collection){                 
+    private static void addCollectionToSortedSet(SortedSet sortedSet, Collection collection) {
+        if (sortedSet != null && collection != null && collection.size() > 0) {
+            System.out.println("adding Collection: " + collection + "to sorted set: " + sortedSet);
+            for (Object curObject : collection) {
                 final boolean wasAdded = sortedSet.add(curObject);
 //                if(sortedSet instanceof TreeSet){
 //                    System.out.println("hascode: "+curObject.hashCode());
@@ -989,7 +1069,7 @@ public class BelisServerBean extends AbstractServiceBean implements BelisServerR
 //
 //                    }
 //                }
-                System.out.println("Added element "+curObject+" to set: "+wasAdded);
+                System.out.println("Added element " + curObject + " to set: " + wasAdded);
 //                if(sortedSet.size() > 0){
 //                    System.out.println("Elment are equals: "+sortedSet.first().equals(curObject));
 //                    //System.out.println("Elements compared: "+ new ReverseComparator(new EntityComparator(new ReverseComparator(new LeuchteComparator()))));
