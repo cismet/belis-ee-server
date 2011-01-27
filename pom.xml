@@ -5,7 +5,7 @@
     <parent>
         <groupId>de.cismet.cids</groupId>
         <artifactId>cids-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.5</version>
     </parent>
 
     <groupId>de.cismet.belis</groupId>
@@ -19,5 +19,27 @@
     <modules>
         <module>../belis-ee-server-ear/trunk</module>
         <module>../belis-ee-server-ejb/trunk</module>
-    </modules>    
+    </modules>
+
+    <profiles>
+        <!-- skip jalopy format due to wierd error oO -->
+        <profile>
+            <id>jalopy-skip</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>triemax</groupId>
+                        <artifactId>jalopy-maven</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
