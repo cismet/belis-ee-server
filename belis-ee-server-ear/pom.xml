@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>belis-ee-server</artifactId>
+        <groupId>de.cismet.belis</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <groupId>de.cismet.belis</groupId>
+    <artifactId>belis-ee-server-ear</artifactId>
+    <packaging>ear</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>BelIS EE Server - ear JEE5 Assembly</name>
+    <description>!!! description pending !!!</description>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <version>5</version>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.glassfish.maven.plugin</groupId>
+                <artifactId>maven-glassfish-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <glassfishDirectory>${glassfish.home}</glassfishDirectory>
+                    <autoCreate>false</autoCreate>
+                    <debug>true</debug>
+                    <echo>true</echo>
+                    <terse>false</terse>
+                    <domain>
+                        <!--<name>${glassfish.domain}</name>
+                        <httpPort>${glassfish.http.port}</httpPort>
+                        <adminPort>${glassfish.admin.port}</adminPort>                        -->
+                        <name>de.cismet.belis.dev</name>
+                        <httpPort>60081</httpPort>
+                        <adminPort>60048</adminPort>                        
+                        <reuse>true</reuse>
+                    </domain>
+                    <components>
+                        <component>
+                            <name>${project.build.finalName}</name>
+                            <artifact>${project.build.directory}/${project.build.finalName}.ear</artifact>
+                        </component>
+                    </components>
+                </configuration>
+            </plugin>
+        </plugins>        
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>de.cismet.belis</groupId>
+            <artifactId>belis-ee-server-ejb</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+    </dependencies>
+</project>
+
