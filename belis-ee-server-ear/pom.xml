@@ -1,21 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <parent>
-        <artifactId>belis-ee-server</artifactId>
         <groupId>de.cismet.belis</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <artifactId>belis-ee-server</artifactId>
+        <version>2.0-SNAPSHOT</version>
     </parent>
+    
     <groupId>de.cismet.belis</groupId>
     <artifactId>belis-ee-server-ear</artifactId>
     <packaging>ear</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>2.0-SNAPSHOT</version>
 
     <name>BelIS EE Server - ear JEE5 Assembly</name>
     <description>!!! description pending !!!</description>
 
+    <prerequisites>
+        <maven>3</maven>
+    </prerequisites>
+
+    <repositories>
+        <repository>
+            <id>cismet-repo</id>
+            <url>https://repo.cismet.de/repo</url>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+                <updatePolicy>daily</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+                <updatePolicy>interval:60</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>de.cismet.belis</groupId>
+            <artifactId>belis-ee-server-ejb</artifactId>
+            <version>2.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
+            <!-- is this still necessary -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -28,7 +61,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>2.7</version>
                 <configuration>
                     <version>5</version>
                 </configuration>
@@ -44,9 +77,6 @@
                     <echo>true</echo>
                     <terse>false</terse>
                     <domain>
-                        <!--<name>${glassfish.domain}</name>
-                        <httpPort>${glassfish.http.port}</httpPort>
-                        <adminPort>${glassfish.admin.port}</adminPort>                        -->
                         <name>de.cismet.belis.dev</name>
                         <httpPort>60081</httpPort>
                         <adminPort>60048</adminPort>                        
@@ -62,13 +92,5 @@
             </plugin>
         </plugins>        
     </build>
-    <dependencies>
-        <dependency>
-            <groupId>de.cismet.belis</groupId>
-            <artifactId>belis-ee-server-ejb</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>ejb</type>
-        </dependency>
-    </dependencies>
 </project>
 
