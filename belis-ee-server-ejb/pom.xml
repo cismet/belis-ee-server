@@ -5,13 +5,13 @@
     <parent>
         <groupId>de.cismet.belis</groupId>
         <artifactId>belis-ee-server</artifactId>
-        <version>4.0</version>
+        <version>4.1-SNAPSHOT</version>
     </parent>
     
     <groupId>de.cismet.belis</groupId>
     <artifactId>belis-ee-server-ejb</artifactId>
     <packaging>jar</packaging>
-    <version>4.0</version>
+    <version>4.1-SNAPSHOT</version>
     
     <name>BelIS EE Server - ejb JEE5 EJB</name>
     <description>!!! description pending !!!</description>

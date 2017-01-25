@@ -11,7 +11,7 @@
     <groupId>de.cismet.belis</groupId>
     <artifactId>belis-ee-server</artifactId>
     <packaging>pom</packaging>
-    <version>4.0</version>
+    <version>4.1-SNAPSHOT</version>
 
     <name>BelIS EE Server Maven Enterprise Application</name>
     <description>!!! description pending !!!</description>
